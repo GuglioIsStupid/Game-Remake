@@ -37,6 +37,7 @@ function stars:update(dt)
         --print(#stars)
         if v.y < -40 then
             table.remove(stars, i)
+            collectgarbage()
         end
     end
 end

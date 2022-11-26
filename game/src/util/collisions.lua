@@ -1,7 +1,7 @@
-require("src.util.AABB")
+require("src.AABB")
 require("src.player")
 require("src.menu")
-require("src.util.generation")
+require("src.util.enemies")
 
 collisions = {}
 

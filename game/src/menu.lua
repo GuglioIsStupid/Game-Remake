@@ -11,7 +11,7 @@ function menu:load()
 end
 
 function menu:draw()
-    if menu.active == true then
+    if menu.active then
         love.graphics.rectangle("line", menu.x,menu.y,menu.w,menu.h)
         love.graphics.print(menu.startingtext, menu.x,menu.y-30)
     end

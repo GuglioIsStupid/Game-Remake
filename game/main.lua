@@ -1,6 +1,6 @@
 require("src.player")
 require("src.menu")
-require("src.util.generation")
+require("src.util.enemies")
 require("src.util.collisions")
 require("src.util.stars")
 
@@ -12,7 +12,6 @@ function love.load()
 	-- render stars first
 	stars:load()
 	player:load()
-	enemies:load()
 	menu:load()
 end
 
@@ -21,7 +20,7 @@ function love.draw()
 	menu:draw()
 	love.graphics.print("press escape at any time to quit")
 	player:draw()
-	if player.restart.active == true then
+	if player.restart.active then
 		game.state = "main"
 		continue()
 	end
@@ -35,7 +34,7 @@ end
 function love.update(dt)
 	stars:update(dt)
 	function love.keypressed(key)
-		if key == "return" and player.restart.active == true then
+		if key == "return" and player.restart.active then
 			player.restart.active = false
 			game.state = 1
 			player.x = love.graphics.getWidth() / 2

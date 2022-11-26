@@ -20,8 +20,8 @@ function player:load()
 
     -- function for shooting
     player.shoot = function()
-        if self.cooldown <= 0 and self.dead == false then
-            self.cooldown = 180
+        if self.cooldown <= 0 and not self.dead then
+            self.cooldown = 1
             bullet = {}
             bullet.speed = 500
             self.bullet = {}
@@ -36,10 +36,9 @@ end
 
 function player:draw()
     function continue()
-        if self.deathtext == true then
+        if self.deathtext then
             love.graphics.print("you died, continue?", self.x, self.y + -40)
         end
-        
     end
     love.graphics.rectangle("fill", self.x,self.y, self.w,self.h)
 
@@ -50,14 +49,12 @@ function player:draw()
 end
 
 function player:input(dt)
-    self.cooldown = self.cooldown - 1
+    self.cooldown = self.cooldown - 1 * dt
 
-    -- moves self right
-    if love.keyboard.isDown("d") and self.dead == false or love.keyboard.isDown("right") and self.dead == false then 
+    if (love.keyboard.isDown("d") or love.keyboard.isDown("right")) and not self.dead then
         self.x = self.x + self.speed * dt
     end
-    -- moves self left
-    if love.keyboard.isDown("a") and self.dead == false or love.keyboard.isDown("left") and self.dead == false then
+    if (love.keyboard.isDown("a") or love.keyboard.isDown("left")) and not self.dead then
         self.x = self.x - self.speed * dt
     end
     -- if self goes outside of the left screen
@@ -75,7 +72,8 @@ function player:input(dt)
     for i,v in pairs(self.bullets) do
         v.y = v.y - bullet.speed * dt
         -- if bullets leave screen
-        if v.y <= -600 then
+        print(v.y)
+        if v.y <= 0-v.h then
             table.remove(self.bullets, i)
         end
     end
